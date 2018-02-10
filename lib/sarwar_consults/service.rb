@@ -1,11 +1,11 @@
 class SarwarConsults::Service
-  attr_accessor :url, :service
+  attr_accessor :url, :title
 
     def initialize
       @url = []
-      @service = []
+      @title = []
     end
-    
+
     def self.get_service
       Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
     end
@@ -15,7 +15,7 @@ class SarwarConsults::Service
     end
 
     def self.scrape_services
-      @service = get_service.search("p a").collect{|item| item.text}
+      @title= get_service.search("p a").collect{|item| item.text}
     end
 
     def self.scrape_url

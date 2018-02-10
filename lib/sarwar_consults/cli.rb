@@ -9,11 +9,8 @@ class SarwarConsults::CLI
 
   def introduction
     puts "Welcome to Sarwar Consults!"
-    puts "Look at the following services:"
-    list_services
     puts "To exit at anytime, type exit."
-    puts "To sign up at anytime, type sign up."
-    puts "What type of services are you looking for today:"
+    puts "What type of services are you looking for?"
   end
 
   def list_services
@@ -22,32 +19,38 @@ class SarwarConsults::CLI
   end
 
   def services
-    input = ""
+    list_services
+    input = nil
     while input != "exit"
-      input = gets.strip
-      services = SarwarConsults::Service.scrape_services
-      urls = SarwarConsults::Service.scrape_url
-      case input
-      when input.to_i <= 13
+     puts ""
+     puts "Enter a number to view specific services."
+     puts ""
+     puts "Enter exit to end the program."
+     puts "To sign up at anytime, type sign up."
+     input = gets.strip
+
+     if input == "sign up"
+        puts "Click on the link below to sign up!"
+        puts SarwarConsults::Service.scrape_signup
+     elsif
+        services = SarwarConsults::Service.scrape_services
+        urls = SarwarConsults::Service.scrape_url
+        if input.to_i <= 13
           service = services[input.to_i-1].strip
           url = urls[input.to_i-1].strip
 
           puts service
           puts SarwarConsults::Service.scrape_content(url)
           puts "For more information, click on: #{url}"
-
-      when "sign up"
-          puts "Click on the link below to sign up!"
-          puts SarwarConsults::Service.scrape_signup
-
-      when "exit"
-          puts "Until next time!"
+        end
+      elsif input == "exit"
+         puts "Until next time!"
+      else
+         puts "Can you repeat?"
       break
-      #else
-      #    puts "I'm sorry, I didn't get that. Can you type that again?"
       end
-    end
-  end
+   end
+ end
 
 
 end
