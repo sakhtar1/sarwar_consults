@@ -1,6 +1,6 @@
 # SarwarConsults
 
-When you're a small business and you're looking to grow your company, advertisement plays a huge role. SarwarConsults gem was created to make it easy for these small businesses to analyze and figure out what they're looking for through answering a few questions. Once they answer the questions, they are presented with the information that best fits their requirements.
+If you're a small business and you're looking to grow your company, advertisement plays a huge role. SarwarConsults gem was created to make it easy for these small businesses to analyze and figure out what they're looking for through answering a few questions. Once they answer the questions, they are presented with the information that best fits their requirements.
 
 
 ## Installation
