@@ -10,7 +10,7 @@ class SarwarConsults::CLI
   def introduction
     puts "Welcome to Sarwar Consults!"
     puts "Look at the following services:"
-    list_services  
+    list_services
     puts "To exit at anytime, type exit."
     puts "To sign up at anytime, type sign up."
     puts "What type of services are you looking for today:"
@@ -39,12 +39,12 @@ class SarwarConsults::CLI
       when "sign up"
           puts "Click on the link below to sign up!"
           puts SarwarConsults::Service.scrape_signup
-          
+
       when "exit"
           puts "Until next time!"
       break
-      else
-          puts "I'm sorry, I didn't get that. Can you type that again?"
+      #else
+      #    puts "I'm sorry, I didn't get that. Can you type that again?"
       end
     end
   end
