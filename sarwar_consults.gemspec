@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["'sakht318@gmail.com'"]
 
   spec.summary       = %q{Sarwar Consults}
-  spec.description   = %q{Sarwar Consults}
-  spec.homepage      = "https://github.com/learn-co-students/cli-data-gem-assessment-v-000/compare/master...sakhtar1:wip?expand=1"
+  spec.description   = %q{Provide consultancy advice via Sarwar Consults website, a consultancy agency}
+  spec.homepage      = "https://github.com/sakhtar1/sarwar_consults"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib", "lib/sarwar_consults"]
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
