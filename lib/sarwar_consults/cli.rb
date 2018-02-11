@@ -28,8 +28,9 @@ class SarwarConsults::CLI
      puts ""
      puts "Enter exit to end the program."
      puts "To sign up at anytime, type sign up."
-     puts ""
+     puts "-----"
      input = gets.strip
+     puts "-----"
 
      services = SarwarConsults::Service.scrape_services
      urls = SarwarConsults::Service.scrape_url
