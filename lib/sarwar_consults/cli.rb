@@ -14,7 +14,7 @@ class SarwarConsults::CLI
   end
 
   def list_services
-    list = SarwarConsults::Service.scrape_services
+    list = SarwarConsults::Service.title
     list.each.with_index(1){|li,i| puts "#{i}. #{li}"}
   end
 
@@ -32,7 +32,7 @@ class SarwarConsults::CLI
      input = gets.strip
      puts "-----"
 
-     services = SarwarConsults::Service.scrape_services
+     services = SarwarConsults::Service.get_service_id
      urls = SarwarConsults::Service.scrape_url
       if input.to_i <= 13
         service = services[input.to_i-1].strip
