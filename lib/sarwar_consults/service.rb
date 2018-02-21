@@ -49,8 +49,8 @@ class SarwarConsults::Service
       end
 
 
-     def self.scrape_content(url)
-       doc = Nokogiri::HTML(open(self.url))
+     def scrape_content
+       doc = Nokogiri::HTML(open("#{self.url}"))
        @content ||= doc.search("p").text.strip
      end
 
