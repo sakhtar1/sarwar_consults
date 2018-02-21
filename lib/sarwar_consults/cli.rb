@@ -39,11 +39,7 @@ class SarwarConsults::CLI
     puts "-----"
     input = gets.strip
     puts "-----"
-      if input.to_i == 0
-          if service = SarwarConsults::Service.find_by_title(input)
-            content(service)
-          end
-      elsif input.to_i > 0
+      if input.to_i > 0
           if service = SarwarConsults::Service.find(input.to_i)
             content(service)
           end

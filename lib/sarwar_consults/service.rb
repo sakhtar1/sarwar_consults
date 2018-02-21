@@ -18,13 +18,6 @@ class SarwarConsults::Service
       self.all[id-1]
     end
 
-    def self.find_by_title(title)
-      self.all.detect do |m|
-        m.title.downcase.strip == title.downcase.strip ||
-        m.title.split("(").first.strip.downcase == title.downcase.strip
-      end
-    end
-
     def self.signup
       @signup ||= get_service.search("#menu-item-1663 a").map{|sign| sign['href']}.join("")
     end
@@ -46,6 +39,5 @@ class SarwarConsults::Service
         Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
       end
 
-    # binding.pry
 
 end
