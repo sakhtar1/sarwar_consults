@@ -13,7 +13,7 @@ class SarwarConsults::CLI
     puts ""
   end
 
-  def list
+  def list_services
     SarwarConsults::Service.all.each.with_index(1) do |service, i|
      puts "#{i}. #{service.title}"
     end
@@ -28,7 +28,7 @@ class SarwarConsults::CLI
   end
 
   def services
-    list
+    list_services
     input = nil
     while input != "exit"
     puts ""
@@ -39,9 +39,7 @@ class SarwarConsults::CLI
     puts "-----"
     input = gets.strip
     puts "-----"
-      if input == "list"
-            list
-      elsif input.to_i == 0
+      if input.to_i == 0
           if service = SarwarConsults::Service.find_by_title(input)
             content(service)
           end
@@ -50,7 +48,20 @@ class SarwarConsults::CLI
             content(service)
           end
       end
-        puts "Goodbye!!!"
+      puts ""
+      puts "Would you like to sign up?"
+      puts ""
+      answer = gets.strip
+      if ["Y", "YES"].include?(answer.upcase)
+        puts ""
+        puts "Click on the link below to sign up!"
+        puts ""
+        puts SarwarConsults::Service.signup
+      end
+      puts ""
+      puts "Would you like to exit or choose another service title?"
+      puts ""
+      input = gets.strip
      end
     end
 

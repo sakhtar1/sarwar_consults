@@ -29,14 +29,12 @@ class SarwarConsults::Service
       @signup ||= get_service.search("#menu-item-1663 a").map{|sign| sign['href']}.join("")
     end
 
-    def self.sum
-      puts "title: #{service.title}"
-      puts "url: #{service.url}"
-      puts "info: #{service.content}"
+    def scrape_content
+      doc = Nokogiri::HTML(open("#{self.url}"))
+      @content ||= doc.search("p").text.strip
     end
 
-
-    #private
+    private
 
       def self.scrape_services
         title = get_service.search("p a")
@@ -47,12 +45,6 @@ class SarwarConsults::Service
       def self.get_service
         Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
       end
-
-
-     def scrape_content
-       doc = Nokogiri::HTML(open("#{self.url}"))
-       @content ||= doc.search("p").text.strip
-     end
 
     # binding.pry
 
