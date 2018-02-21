@@ -1,18 +1,17 @@
 require 'pry'
 
 class SarwarConsults::Service
-  attr_accessor :title, :url, :content
+  attr_accessor :title, :url, :content, :signup
 
-  @@all = []
 
-    def initialize (url = nil,title = nil)
-      @url = url
+    def initialize (title = nil, url = nil, content = nil)
       @title = title
-      @@all << self
+      @url = url
+      @content = content
     end
 
     def self.all
-      @@all
+      @@all ||= scrape_services
     end
 
     def self.find(id)
@@ -26,49 +25,35 @@ class SarwarConsults::Service
       end
     end
 
+    def self.signup
+      @signup ||= get_service.search("#menu-item-1663 a").map{|sign| sign['href']}.join("")
+    end
 
-    def self.scrape_signup
-      @signup = get_service.search("#menu-item-1663 a").map{|sign| sign['href']}.join("")
+    def self.sum
+      puts "title: #{service.title}"
+      puts "url: #{service.url}"
+      puts "info: #{service.content}"
     end
 
 
+    #private
 
-    private
-
-      def self.get_service_id
+      def self.scrape_services
         title = get_service.search("p a")
-        title.collect{|e| new(e.text.strip, "http://sarwarconsults.com#{e.attr("href").split("?").first.strip}")}
+        title.collect{|e| new(e.text.strip, "#{e.attr("href").split("?").first.strip}")}
       end
+
 
       def self.get_service
         Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
       end
 
-      def self.scrape_all
-        service = self.new
-        service.title = get_service.search("p a").collect{|item| item.text}
-        service.url = get_service.search("p a").collect{|link| link['href']}
-        url = service.url
-        service.content = url.each do |u|
-          doc = Nokogiri::HTML(open(u))
-          doc.search("p").text.strip
-        end
-      end
 
+     def self.scrape_content(url)
+       doc = Nokogiri::HTML(open(self.url))
+       @content ||= doc.search("p").text.strip
+     end
 
-      def self.scrape_services
-        @title = get_service.search("p a").collect{|item| item.text}
-      end
-
-      def self.scrape_url
-       @url = get_service.search("p a").collect{|link| link['href']}
-      end
-      binding.pry
-
-      #  def self.scrape_content(url)
-          #    doc = Nokogiri::HTML(open(url))
-          #    doc.search("p").text.strip
-      #  end
-
+    # binding.pry
 
 end

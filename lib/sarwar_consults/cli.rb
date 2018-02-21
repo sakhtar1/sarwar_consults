@@ -1,5 +1,5 @@
 # CLI Controller >> user interaction and dealing with input
-require 'pry'
+#require 'pry'
 class SarwarConsults::CLI
 
   def call
@@ -13,54 +13,45 @@ class SarwarConsults::CLI
     puts ""
   end
 
-  def list_services
-    list = SarwarConsults::Service.title
-    list.each.with_index(1){|li,i| puts "#{i}. #{li}"}
+  def list
+    SarwarConsults::Service.all.each.with_index(1) do |s, i|
+     puts "#{i}. #{s.title}"
+    end
+  end
+
+  def content_list(i)
+    SarwarConsults::Service.all.each.with_index(1)  do |s,i|
+      puts "#{i}. #{s.title}"
+      puts "info: #{s.content}"
+      puts "url: #{s.url}"
+    end
   end
 
   def services
-    list_services
     puts ""
+    list
     input = nil
     while input != "exit"
-     puts ""
-     puts "Enter a number to view specific services."
-     puts ""
-     puts "Enter exit to end the program."
-     puts "To sign up at anytime, type sign up."
-     puts "-----"
-     input = gets.strip
-     puts "-----"
-
-     services = SarwarConsults::Service.get_service_id
-     urls = SarwarConsults::Service.scrape_url
-      if input.to_i <= 13
-        service = services[input.to_i-1].strip
-        url = urls[input.to_i-1].strip
-
-        puts service
-        puts ""
-        puts SarwarConsults::Service.scrape_content(url)
-        puts ""
-        puts "For more information, click on: #{url}"
-        puts ""
-        puts "Would you like to sign up?"
-        puts ""
-        answer = gets.strip
-        if ["Y", "YES"].include?(answer.upcase)
-          puts ""
-          puts "Click on the link below to sign up!"
-          puts ""
-          puts SarwarConsults::Service.scrape_signup
-        end
+    puts ""
+    puts "Enter a number to view specific services."
+    puts ""
+    puts "Enter exit to end the program."
+    puts "To sign up at anytime, type sign up."
+    puts "-----"
+    input = gets.strip
+    puts "-----"
+      if input == "list"
+            list
+      elsif input.to_i == 0
+          if SarwarConsults::Service.find_by_title(input)
+            content_list(input)
+          end
+      elsif input.to_i > 0
+          if SarwarConsults::Service.find(input.to_i)
+            content_list(input)
+          end
       end
-      puts ""
-      puts "Would you like to exit or see the service list again?"
-      puts ""
-      input = gets.strip
+        puts "Goodbye!!!"
+     end
     end
-
- end
-
-
 end
