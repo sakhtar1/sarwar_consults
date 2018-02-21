@@ -1,13 +1,10 @@
-require 'pry'
-
 class SarwarConsults::Service
   attr_accessor :title, :url, :content, :signup
 
 
-    def initialize (title = nil, url = nil, content = nil)
+    def initialize (title = nil, url = nil)
       @title = title
       @url = url
-      @content = content
     end
 
     def self.all
@@ -29,10 +26,10 @@ class SarwarConsults::Service
 
     private
 
-      def self.scrape_services
-        title = get_service.search("p a")
-        title.collect{|e| new(e.text.strip, "#{e.attr("href").split("?").first.strip}")}
-      end
+    def self.scrape_services
+       service_titles = get_service.search("p a")
+       service_titles.collect{|e| new(e.text.strip, "#{e.attr("href").strip}")}
+    end
 
 
       def self.get_service

@@ -1,5 +1,3 @@
-# CLI Controller >> user interaction and dealing with input
-#require 'pry'
 class SarwarConsults::CLI
 
   def call
