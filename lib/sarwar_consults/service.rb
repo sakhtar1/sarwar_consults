@@ -1,3 +1,4 @@
+require 'pry'
 class SarwarConsults::Service
   attr_accessor :title, :url, :content, :signup
 
@@ -16,7 +17,7 @@ class SarwarConsults::Service
     end
 
     def self.signup
-      @signup ||= get_service.search("#menu-item-1663 a").map{|sign| sign['href']}.join("")
+      @signup ||= get_service.search("#menu-item-1663 a").attr('href').text
     end
 
     def scrape_content
@@ -36,5 +37,5 @@ class SarwarConsults::Service
         Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
       end
 
-
+#binding.pry
 end
