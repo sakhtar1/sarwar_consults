@@ -2,14 +2,15 @@ require 'pry'
 class SarwarConsults::Service
   attr_accessor :title, :url, :content, :signup
 
-
+  @@all = []
     def initialize (title = nil, url = nil)
       @title = title
       @url = url
+      @@all << self
     end
 
     def self.all
-      @@all ||= scrape_services
+      @@all
     end
 
     def self.find(id)

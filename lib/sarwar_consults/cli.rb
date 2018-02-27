@@ -9,6 +9,7 @@ class SarwarConsults::CLI
     puts "Welcome to Sarwar Consults!"
     puts "What type of services are you looking for?"
     puts ""
+    SarwarConsults::Service.scrape_services
   end
 
   def list_services
@@ -30,7 +31,7 @@ class SarwarConsults::CLI
     input = nil
     while input != "exit"
     puts ""
-    puts "Enter a number to view specific services."
+    puts "Enter a number to view specific services or enter list to view list of services."
     puts ""
     puts "Enter exit to end the program."
     puts "To sign up at anytime, type sign up."
@@ -41,21 +42,25 @@ class SarwarConsults::CLI
           if service = SarwarConsults::Service.find(input.to_i)
             content(service)
           end
-      end
-      puts ""
-      puts "Would you like to sign up?"
-      puts ""
-      answer = gets.strip
-      if ["Y", "YES"].include?(answer.upcase)
+      elsif input == "sign up"
         puts ""
-        puts "Click on the link below to sign up!"
+        puts "Would you like to sign up?"
         puts ""
-        puts SarwarConsults::Service.signup
+        answer = gets.strip
+        if ["Y", "YES"].include?(answer.upcase)
+          puts ""
+          puts "Click on the link below to sign up!"
+          puts ""
+          puts SarwarConsults::Service.signup
+        end
+      elsif input == "list"
+        list_services
+      else
+        puts ""
+        puts "Would you like to exit or choose another service title?"
+        puts ""
+        input = gets.strip
       end
-      puts ""
-      puts "Would you like to exit or choose another service title?"
-      puts ""
-      input = gets.strip
      end
     end
 
