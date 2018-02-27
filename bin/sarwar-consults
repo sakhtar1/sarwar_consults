@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "sarwar_consults"
+require_relative '../lib/sarwar_consults'
 
 
 SarwarConsults::CLI.new.call
