@@ -1,8 +1,9 @@
-require 'pry'
 class SarwarConsults::Service
+  
   attr_accessor :title, :url, :content, :signup
 
   @@all = []
+  
     def initialize (title = nil, url = nil)
       @title = title
       @url = url
@@ -28,15 +29,14 @@ class SarwarConsults::Service
 
     private
 
-    def self.scrape_services
-       service_titles = get_service.search("p a")
-       service_titles.collect{|e| new(e.text.strip, "#{e.attr("href").strip}")}
-    end
+      def self.scrape_services
+         service_titles = get_service.search("p a")
+         service_titles.collect{|e| new(e.text.strip, "#{e.attr("href").strip}")}
+      end
 
 
       def self.get_service
         Nokogiri::HTML(open('http://sarwarconsults.com/services/'))
       end
 
-#binding.pry
 end
